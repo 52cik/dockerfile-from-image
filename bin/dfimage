@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+const meow = require('meow');
+const Docker = require('dockerode');
+const docker = new Docker();
+
+const cli = meow(`
+  Usage
+    $ dfimage <IMAGE_TAG_OR_ID>
+  Options
+    -h, --help     output usage information
+    -v, --version  output the version number
+  Examples
+    $ ine nginx:alpine
+    or
+    $ ine aae476eee77d
+  \n
+`, {
+	alias: {
+    h: 'help',
+    v: 'version',
+	}
+});
+
+if (cli.input.length === 0) {
+  cli.showHelp();
+} else {
+  const id = cli.input[0];
+  parse(id)
+    .catch(console.error);
+}
+
+/**
+ * 分析镜像
+ * @param id 镜像名或ID
+ */
+async function parse(id) {
+  const image = await docker.getImage(id);
+
+  const inspect = await image.inspect();
+  const tag = inspect.RepoTags[0];
+  console.log('FROM', tag);
+
+  let history = await image.history();
+
+  history = history.reverse().map((it, idx) => {
+    let line = it.CreatedBy;
+    if (line.includes('#(nop)')) {
+      line = line.replace(/\/bin\/\w+ -c #\(nop\)\s+/, '');
+    } else {
+      line = line
+        .replace(/\/bin\/\w+ -c\s+/, 'RUN ') // 添加 RUN 指令
+        .replace(/ ( {2,})/g, ' \\\n$1') // 处理多空格换行
+        .replace(/(\t+)/g, '\\\n$1'); // 处理多空格换行
+    }
+    return line;
+  });
+
+  console.log(history.join('\n'));
+}

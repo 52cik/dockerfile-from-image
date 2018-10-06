@@ -1,0 +1,33 @@
+{
+  "name": "dockerfile-from-image",
+  "version": "0.1.0",
+  "description": "Extract Dockerfile from image.",
+  "main": "bin/dfimage",
+  "engines": {
+    "node": ">=8.6"
+  },
+  "bin": {
+    "dfimage": "bin/dfimage"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/52cik/dockerfile-from-image.git"
+  },
+  "keywords": [
+    "docker",
+    "dockerfile"
+  ],
+  "author": "楼教主 <fe.52cik@gmail.com> (http://www.52cik.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/52cik/dockerfile-from-image/issues"
+  },
+  "homepage": "https://github.com/52cik/dockerfile-from-image#readme",
+  "dependencies": {
+    "dockerode": "^2.5.7",
+    "meow": "^5.0.0"
+  }
+}
