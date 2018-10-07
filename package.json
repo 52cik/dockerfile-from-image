@@ -1,6 +1,6 @@
 {
   "name": "dockerfile-from-image",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Extract Dockerfile from image.",
   "main": "bin/dfimage",
   "engines": {

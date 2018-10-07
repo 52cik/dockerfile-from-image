@@ -2,6 +2,7 @@
 
 const meow = require('meow');
 const Docker = require('dockerode');
+
 const docker = new Docker();
 
 const cli = meow(`
@@ -11,9 +12,9 @@ const cli = meow(`
     -h, --help     output usage information
     -v, --version  output the version number
   Examples
-    $ ine nginx:alpine
+    $ dfimage nginx:alpine
     or
-    $ ine aae476eee77d
+    $ dfimage aae476eee77d
   \n
 `, {
 	alias: {
@@ -26,8 +27,7 @@ if (cli.input.length === 0) {
   cli.showHelp();
 } else {
   const id = cli.input[0];
-  parse(id)
-    .catch(console.error);
+  parse(id).catch(console.error);
 }
 
 /**
