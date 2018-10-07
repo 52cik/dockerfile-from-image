@@ -8,10 +8,18 @@
 
 #### npm 模块
 
+传统用户
+
 ```sh
 $ npm i -g dockerfile-from-image    # 安装命令行工具
 $ dfimage nginx:alpine              # 命令行显示
 $ dfimage nginx:alpine > Dockerfile # 输出到文件
+```
+
+npx 神器 **(推荐)**
+
+```sh
+$ npx dockerfile-from-image nginx:alpine > Dockerfile # 输出到文件
 ```
 
 #### docker 镜像
